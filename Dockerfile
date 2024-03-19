@@ -110,6 +110,12 @@ RUN docker-php-ext-configure exif
 RUN docker-php-ext-install exif
 RUN docker-php-ext-enable exif
 
+# Install pngquant for compress png
+RUN apt-get update && apt-get install -y pngquant
+
+# Install webp for convert .webp e.g cwebp, gif2webp
+RUN apt-get update && apt-get install -y webp
+
 # Remove after install
 RUN apt-get -y autoremove
 RUN apt-get clean
