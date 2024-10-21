@@ -25,12 +25,12 @@ RUN docker-php-ext-install bcmath
 # Install and configure Composer.
 RUN php -r "readfile('http://getcomposer.org/installer');" | php -- --install-dir=/usr/bin/ --filename=composer
 
-# Install and configure the gRPC extension. pecl.php.net
-RUN pecl install grpc
+# Install and configure the gRPC
+RUN pecl install grpc-1.67.0
 RUN echo 'extension=grpc.so' >> $PHP_INI_DIR/conf.d/grpc.ini
 
 # Install and configure the C implementation of Protobuf extension if needed. v.3.13.0
-RUN if [ "$USE_C_PROTOBUF" = "false" ]; then echo 'Using PHP implementation of Protobuf'; else echo 'Using C implementation of Protobuf'; pecl install protobuf; echo 'extension=protobuf.so' >> $PHP_INI_DIR/conf.d/protobuf.ini; fi
+RUN if [ "$USE_C_PROTOBUF" = "false" ]; then echo 'Using PHP implementation of Protobuf'; else echo 'Using C implementation of Protobuf'; pecl install protobuf-4.27.5; echo 'extension=protobuf.so' >> $PHP_INI_DIR/conf.d/protobuf.ini; fi
 
 # Install gd
 RUN apt-get update && apt-get install -y libgd-dev
@@ -38,12 +38,12 @@ RUN apt-get install -y libwebp-dev
 RUN docker-php-ext-configure gd --with-freetype=/usr/include/ --with-jpeg=/usr/include/
 RUN docker-php-ext-install gd
 
-# Install imagick pecl.php.net
+# Install imagick
 RUN apt-get update && apt-get install -y libmagickwand-dev --no-install-recommends && rm -rf /var/lib/apt/lists/*
-RUN pecl install imagick
+RUN pecl install imagick-3.7.0
 RUN docker-php-ext-enable imagick
 
-# Install mongodb pecl.php.net
+# Install mongodb
 RUN apt-get update && apt-get install -y libcurl4-openssl-dev pkg-config libssl-dev
 RUN pecl install mongodb-1.20.0
 RUN docker-php-ext-enable mongodb
@@ -77,7 +77,7 @@ RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 # Install memcached
 RUN apt-get update -y && apt-get install -y libz-dev libmemcached-dev memcached libmemcached-tools
-RUN pecl install memcached
+RUN pecl install memcached-3.3.0
 RUN docker-php-ext-enable memcached
 
 # Install redis
