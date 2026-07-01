@@ -119,6 +119,10 @@ RUN apt-get update && apt-get install -y webp
 # Install opcache
 RUN docker-php-ext-install opcache
 
+# Install OpenTelemetry
+RUN pecl install opentelemetry
+RUN docker-php-ext-enable opentelemetry
+
 # Remove after install
 RUN apt-get -y autoremove
 RUN apt-get clean
