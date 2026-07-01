@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -y vim
 RUN apt-get update && apt-get install -y libxml2
 
 # Install zip
-RUN apt-get update && apt-get install -y libzip-dev libzip4 zlib1g-dev
+#RUN apt-get update && apt-get install -y libzip-dev libzip4 zlib1g-dev
+RUN apt-get update && apt-get install -y libzip-dev zlib1g-dev
 RUN docker-php-ext-configure zip
 RUN docker-php-ext-install zip
 
